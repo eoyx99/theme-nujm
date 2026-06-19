@@ -1,0 +1,38 @@
+{#
+| Variable | Type     | Description                                |
+|----------|----------|--------------------------------------------|
+| component.slides | array | Hero slides from twilight.json component |
+#}
+
+{% set slides = component.slides|default([]) %}
+
+{% if slides|length %}
+  <section class="nujm-section nujm-hero" data-nujm-reveal>
+    <salla-slider type="fullwidth" show-controls="false" auto-play>
+      <div slot="items">
+        {% for slide in slides %}
+          <div class="nujm-hero__slide {{ slide.dark_text ? 'is-dark-text' : '' }}">
+            {% if slide.image %}
+              <img class="nujm-hero__image" src="{{ slide.image }}" alt="{{ slide.title|default(store.name) }}">
+            {% endif %}
+            <div class="nujm-hero__shade"></div>
+            <div class="container nujm-hero__content">
+              {% if slide.kicker %}
+                <span class="nujm-eyebrow">{{ slide.kicker }}</span>
+              {% endif %}
+              {% if slide.title %}
+                <h2>{{ slide.title }}</h2>
+              {% endif %}
+              {% if slide.description %}
+                <p>{{ slide.description }}</p>
+              {% endif %}
+              {% if slide.button and slide.url %}
+                <a class="nujm-button" href="{{ slide.url }}">{{ slide.button }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </salla-slider>
+  </section>
+{% endif %}

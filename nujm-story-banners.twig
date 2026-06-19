@@ -1,0 +1,39 @@
+{#
+| Variable | Type  | Description     |
+|----------|-------|-----------------|
+| component.title | string | Section title |
+| component.banners | array | Story banners |
+#}
+
+{% set banners = component.banners|default([]) %}
+
+{% if banners|length %}
+  <section class="nujm-section nujm-banners" data-nujm-reveal>
+    <div class="container">
+      {% if component.title %}
+        <div class="nujm-section__head">
+          <h2>{{ component.title }}</h2>
+        </div>
+      {% endif %}
+
+      <div class="nujm-banners__grid">
+        {% for banner in banners %}
+          <a class="nujm-banner" href="{{ banner.url|default('#') }}">
+            {% if banner.image %}
+              <img src="{{ banner.image }}" alt="{{ banner.title|default(store.name) }}">
+            {% endif %}
+            <span class="nujm-banner__overlay"></span>
+            <span class="nujm-banner__content">
+              {% if banner.title %}
+                <strong>{{ banner.title }}</strong>
+              {% endif %}
+              {% if banner.description %}
+                <small>{{ banner.description }}</small>
+              {% endif %}
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,37 @@
+{#
+| Variable | Type  | Description            |
+|----------|-------|------------------------|
+| component.title | string | Section title     |
+| component.items | array  | Circular links    |
+#}
+
+{% set items = component.items|default([]) %}
+
+{% if items|length %}
+  <section class="nujm-section nujm-stories" data-nujm-reveal>
+    <div class="container">
+      {% if component.title %}
+        <div class="nujm-section__head">
+          <h2>{{ component.title }}</h2>
+        </div>
+      {% endif %}
+
+      <div class="nujm-stories__rail">
+        {% for item in items %}
+          {% if item.title %}
+            <a class="nujm-story" href="{{ item.url|default('#') }}">
+              <span class="nujm-story__media">
+                {% if item.image %}
+                  <img src="{{ item.image }}" alt="{{ item.title }}">
+                {% else %}
+                  <i class="sicon-star2"></i>
+                {% endif %}
+              </span>
+              <span class="nujm-story__title">{{ item.title }}</span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endif %}

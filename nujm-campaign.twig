@@ -1,0 +1,33 @@
+{#
+| Variable | Type   | Description          |
+|----------|--------|----------------------|
+| component.image | string | Background image |
+| component.title | string | Campaign title   |
+#}
+
+{% if component.title or component.image %}
+  <section class="nujm-section nujm-campaign" data-nujm-reveal>
+    <div class="container">
+      <div class="nujm-campaign__panel">
+        {% if component.image %}
+          <img src="{{ component.image }}" alt="{{ component.title|default(store.name) }}">
+        {% endif %}
+        <div class="nujm-campaign__shade"></div>
+        <div class="nujm-campaign__content">
+          {% if component.kicker %}
+            <span class="nujm-eyebrow">{{ component.kicker }}</span>
+          {% endif %}
+          {% if component.title %}
+            <h2>{{ component.title }}</h2>
+          {% endif %}
+          {% if component.description %}
+            <p>{{ component.description }}</p>
+          {% endif %}
+          {% if component.button and component.url %}
+            <a class="nujm-button" href="{{ component.url }}">{{ component.button }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
